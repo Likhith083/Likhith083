@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Likhith.OS — Agentic AI Developer &amp; Full-Stack Engineer</title>
+  <meta name="description" content="Likhith Avileli — Agentic AI Developer and Full-Stack Engineer at ITion Solutions, Dallas TX. Building intelligent systems with LangChain, PyTorch, React, and n8n." />
+  <meta name="author" content="Likhith Avileli" />
+  <meta property="og:title" content="Likhith.OS — Agentic AI Developer" />
+  <meta property="og:description" content="Building intelligent systems at the intersection of AI and full-stack engineering." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://likhith083.github.io" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Likhith.OS" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="canonical" href="https://likhith083.github.io" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=cabinet-grotesk@700,800&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+<!-- ── Boot Screen ──────────────────────────────────────────────────── -->
+<div id="boot-screen" role="status" aria-live="polite" aria-label="Loading Likhith.OS">
+  <div class="boot-terminal">
+    <div class="boot-header">
+      <span class="boot-os-name">LIKHITH.OS</span>
+      <span class="boot-version">v1.0.0 — Personal Operating System</span>
+    </div>
+    <hr class="boot-hr" />
+    <div class="boot-log" id="boot-log" aria-hidden="true"></div>
+    <div class="boot-prompt-line">
+      <span>boot@likhith:~$</span>
+      <span class="boot-caret"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Navigation ───────────────────────────────────────────────────── -->
+<nav class="nav" id="nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo" aria-label="Likhith.OS home">Likhith.OS</a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#about"          class="nav-link">~/about</a></li>
+      <li><a href="#experience"     class="nav-link">~/work</a></li>
+      <li><a href="#skills"         class="nav-link">~/skills</a></li>
+      <li><a href="#projects"       class="nav-link">~/projects</a></li>
+      <li><a href="#certifications" class="nav-link">~/certs</a></li>
+      <li><a href="#contact"        class="nav-link">~/contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <span class="nav-clock" id="nav-clock" aria-hidden="true"></span>
+
+      <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light mode">
+        <!-- Moon (dark mode active) -->
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <!-- Sun (light mode active) -->
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+
+      <button id="nav-hamburger" class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div id="mobile-nav" class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+  <a href="#about"          class="mobile-nav-link">~/about</a>
+  <a href="#experience"     class="mobile-nav-link">~/work</a>
+  <a href="#skills"         class="mobile-nav-link">~/skills</a>
+  <a href="#projects"       class="mobile-nav-link">~/projects</a>
+  <a href="#certifications" class="mobile-nav-link">~/certs</a>
+  <a href="#contact"        class="mobile-nav-link">~/contact</a>
+</div>
+
+<main id="main">
+
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <section id="hero" class="hero-section" aria-label="Introduction">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+    <div class="hero-content">
+      <div class="hero-status hero-animate" aria-label="Availability status">
+        <span class="status-dot" aria-hidden="true"></span>
+        Available for collaboration
+      </div>
+
+      <h1 class="hero-name hero-animate">
+        <span>Likhith</span><br />
+        <span class="hero-name-accent">Avileli</span>
+      </h1>
+
+      <div class="hero-typewriter-wrap hero-animate" aria-label="Role description">
+        <span class="tw-prompt" aria-hidden="true">$&nbsp;</span>
+        <span id="typewriter" aria-live="polite"></span>
+        <span class="tw-cursor" aria-hidden="true"></span>
+      </div>
+
+      <p class="hero-desc hero-animate">
+        Agentic AI Developer &amp; Full-Stack Engineer at ITion Solutions.
+        Building intelligent systems that automate the complex — RAG pipelines,
+        multi-agent frameworks, and production-grade web applications.
+      </p>
+
+      <div class="hero-meta hero-animate" aria-hidden="true">
+        <span class="hero-meta-item">
+          <svg class="hero-meta-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Dallas, TX
+        </span>
+        <span class="hero-meta-item">
+          <svg class="hero-meta-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          ITion Solutions
+        </span>
+      </div>
+
+      <div class="hero-actions hero-animate">
+        <a href="#projects" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          View Work
+        </a>
+        <a href="#contact" class="btn btn-ghost">
+          Get In Touch
+        </a>
+      </div>
+
+      <div class="hero-social hero-animate">
+        <a href="https://github.com/Likhith083" class="hero-social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          Likhith083
+        </a>
+        <a href="https://www.linkedin.com/in/likhithavileli/" class="hero-social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          likhithavileli
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About ─────────────────────────────────────────────────────── -->
+  <section id="about" class="section about-section" aria-labelledby="about-title">
+    <div class="container">
+      <p class="section-eyebrow">about.md</p>
+      <h2 id="about-title" class="section-title">Who I Am</h2>
+
+      <div class="about-grid">
+        <div class="about-bio reveal">
+          <p>
+            I'm <strong>Likhith Avileli</strong>, an <span class="accent">Agentic AI Developer</span> and
+            Full-Stack Engineer based in Dallas, TX, currently building at
+            <strong>ITion Solutions</strong>. I specialize in the messy, rewarding work of
+            bridging cutting-edge AI research with real-world production systems.
+          </p>
+          <p>
+            My core focus is designing <strong>multi-agent LLM systems</strong> and
+            <strong>RAG pipelines</strong> that automate complex enterprise workflows —
+            from ERP integrations to intelligent document processing.
+            On the frontend, I build with React and React Native; on the backend,
+            Node.js, Python, and FastAPI power the stack.
+          </p>
+          <p>
+            When I'm not coding, I'm exploring the latest in LLM architectures,
+            contributing to open-source GenAI tooling, and finding ways to make
+            <strong>n8n</strong> do things it was never meant to do.
+          </p>
+
+          <div class="about-stats">
+            <div>
+              <span class="about-stat-num">2+</span>
+              <span class="about-stat-label">Years in AI/ML</span>
+            </div>
+            <div>
+              <span class="about-stat-num">15+</span>
+              <span class="about-stat-label">Projects Shipped</span>
+            </div>
+            <div>
+              <span class="about-stat-num">8+</span>
+              <span class="about-stat-label">Certifications</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Code panel -->
+        <div class="about-panel reveal reveal-delay-2">
+          <div class="panel-titlebar">
+            <div class="panel-dots" aria-hidden="true">
+              <span class="panel-dot"></span>
+              <span class="panel-dot"></span>
+              <span class="panel-dot"></span>
+            </div>
+            <span class="panel-title">likhith.config.json</span>
+          </div>
+          <div class="panel-body" aria-label="Profile configuration">
+            <div class="panel-comment">// current build</div>
+            <div>
+              <span class="panel-key">"role"</span>:
+              <span class="panel-str">"Agentic AI Developer"</span>,
+            </div>
+            <div>
+              <span class="panel-key">"location"</span>:
+              <span class="panel-str">"Dallas, TX"</span>,
+            </div>
+            <div>
+              <span class="panel-key">"company"</span>:
+              <span class="panel-str">"ITion Solutions"</span>,
+            </div>
+            <div>&nbsp;</div>
+            <div class="panel-comment">// current focus</div>
+            <div>
+              <span class="panel-key">"learning"</span>: [
+            </div>
+            <div>&nbsp;&nbsp;<span class="panel-str">"Multi-agent orchestration"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="panel-str">"Advanced LLM architectures"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="panel-str">"React Native"</span></div>
+            <div>],</div>
+            <div>&nbsp;</div>
+            <div>
+              <span class="panel-key">"openToCollaborate"</span>:
+              <span class="panel-bool">true</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Experience ─────────────────────────────────────────────────── -->
+  <section id="experience" class="section experience-section" aria-labelledby="exp-title">
+    <div class="container">
+      <p class="section-eyebrow">git log ./career</p>
+      <h2 id="exp-title" class="section-title">Experience</h2>
+
+      <div class="timeline">
+
+        <!-- ITion Solutions — Current -->
+        <div class="timeline-item current reveal">
+          <span class="timeline-dot" aria-hidden="true"></span>
+          <div class="timeline-date">
+            Jan 2024 — Present
+            <span class="timeline-badge">Current</span>
+          </div>
+          <div class="timeline-role">AI/ML Engineer &amp; Full-Stack Developer</div>
+          <div class="timeline-company">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            ITion Solutions — Dallas, TX
+          </div>
+          <p class="timeline-desc">
+            Architect and deploy agentic AI systems that automate enterprise workflows —
+            including multi-agent LangChain pipelines, RAG-based document intelligence,
+            and n8n automation integrations. Lead full-stack development of ERP
+            modules using React, Node.js, and PostgreSQL. Containerize and ship
+            production services with Docker and GitHub Actions CI/CD.
+          </p>
+          <div class="timeline-tags">
+            <span class="tag">LangChain</span>
+            <span class="tag">RAG</span>
+            <span class="tag">n8n</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Docker</span>
+            <span class="tag">GitHub Actions</span>
+          </div>
+        </div>
+
+        <!-- AI Research Intern -->
+        <div class="timeline-item reveal">
+          <span class="timeline-dot" aria-hidden="true"></span>
+          <div class="timeline-date">Jun 2023 — Dec 2023</div>
+          <div class="timeline-role">AI/ML Research Intern</div>
+          <div class="timeline-company">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            ITion Solutions — Dallas, TX
+          </div>
+          <p class="timeline-desc">
+            Researched and prototyped NLP pipelines for automated document classification
+            and entity extraction. Built data preprocessing workflows in Python,
+            fine-tuned transformer models on domain-specific datasets,
+            and delivered a working proof-of-concept for intelligent invoice processing.
+          </p>
+          <div class="timeline-tags">
+            <span class="tag">Python</span>
+            <span class="tag">HuggingFace</span>
+            <span class="tag">NLP</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">FastAPI</span>
+          </div>
+        </div>
+
+        <!-- Freelance -->
+        <div class="timeline-item reveal">
+          <span class="timeline-dot" aria-hidden="true"></span>
+          <div class="timeline-date">2022 — 2023</div>
+          <div class="timeline-role">Freelance Full-Stack Developer</div>
+          <div class="timeline-company">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Independent
+          </div>
+          <p class="timeline-desc">
+            Designed and shipped full-stack web applications for small businesses —
+            e-commerce storefronts, custom dashboards, and REST API integrations.
+            Introduced clients to automation tooling that saved 10–20 hours per week
+            in manual data handling.
+          </p>
+          <div class="timeline-tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">REST APIs</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Skills ─────────────────────────────────────────────────────── -->
+  <section id="skills" class="section skills-section" aria-labelledby="skills-title">
+    <div class="container">
+      <p class="section-eyebrow">pip list &#x7c; grep skills</p>
+      <h2 id="skills-title" class="section-title">Tech Stack</h2>
+
+      <div class="skills-categories">
+
+        <div class="reveal">
+          <div class="skills-category-label">// AI &amp; Machine Learning</div>
+          <div class="skills-row">
+            <div class="skill-card"><span class="skill-icon">🐍</span> Python</div>
+            <div class="skill-card"><span class="skill-icon">🔥</span> PyTorch</div>
+            <div class="skill-card"><span class="skill-icon">🤖</span> LangChain</div>
+            <div class="skill-card"><span class="skill-icon">🤗</span> HuggingFace</div>
+            <div class="skill-card"><span class="skill-icon">📡</span> RAG Pipelines</div>
+            <div class="skill-card"><span class="skill-icon">🧬</span> LLMs</div>
+            <div class="skill-card"><span class="skill-icon">⚡</span> n8n Automation</div>
+            <div class="skill-card"><span class="skill-icon">🔷</span> TensorFlow</div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-1">
+          <div class="skills-category-label">// Frontend</div>
+          <div class="skills-row">
+            <div class="skill-card"><span class="skill-icon">⚛️</span> React</div>
+            <div class="skill-card"><span class="skill-icon">📱</span> React Native</div>
+            <div class="skill-card"><span class="skill-icon">📦</span> Expo</div>
+            <div class="skill-card"><span class="skill-icon">📜</span> JavaScript</div>
+            <div class="skill-card"><span class="skill-icon">🎨</span> HTML / CSS</div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-2">
+          <div class="skills-category-label">// Backend &amp; Data</div>
+          <div class="skills-row">
+            <div class="skill-card"><span class="skill-icon">🟢</span> Node.js</div>
+            <div class="skill-card"><span class="skill-icon">⚡</span> FastAPI</div>
+            <div class="skill-card"><span class="skill-icon">🐘</span> PostgreSQL</div>
+            <div class="skill-card"><span class="skill-icon">🔴</span> Redis</div>
+            <div class="skill-card"><span class="skill-icon">🗃️</span> REST APIs</div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-3">
+          <div class="skills-category-label">// DevOps &amp; Cloud</div>
+          <div class="skills-row">
+            <div class="skill-card"><span class="skill-icon">🐳</span> Docker</div>
+            <div class="skill-card"><span class="skill-icon">⚙️</span> GitHub Actions</div>
+            <div class="skill-card"><span class="skill-icon">☁️</span> AWS</div>
+            <div class="skill-card"><span class="skill-icon">🐙</span> Git</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Projects ───────────────────────────────────────────────────── -->
+  <section id="projects" class="section projects-section" aria-labelledby="projects-title">
+    <div class="container">
+      <p class="section-eyebrow">ls -la ./projects</p>
+      <h2 id="projects-title" class="section-title">Projects</h2>
+      <p class="section-subtitle">
+        Selected work — from agentic AI systems to full-stack applications.
+      </p>
+
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <article class="project-card reveal" aria-labelledby="proj1-title">
+          <div class="project-header">
+            <div class="project-icon" aria-hidden="true">🤖</div>
+            <div class="project-links">
+              <a href="https://github.com/Likhith083" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="project-body">
+            <h3 id="proj1-title" class="project-name">AgentFlow</h3>
+            <p class="project-desc">
+              Multi-agent LangChain framework for enterprise workflow automation.
+              Orchestrates specialized AI agents for document classification,
+              data extraction, and decision routing — integrated with n8n for
+              trigger-based pipeline execution.
+            </p>
+          </div>
+          <div class="project-footer">
+            <span class="tag">LangChain</span>
+            <span class="tag">Python</span>
+            <span class="tag">n8n</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card reveal reveal-delay-1" aria-labelledby="proj2-title">
+          <div class="project-header">
+            <div class="project-icon" aria-hidden="true">🧠</div>
+            <div class="project-links">
+              <a href="https://github.com/Likhith083" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="project-body">
+            <h3 id="proj2-title" class="project-name">DocMind RAG</h3>
+            <p class="project-desc">
+              Production-grade Retrieval-Augmented Generation system for intelligent
+              document Q&amp;A. Ingests PDFs, Word docs, and spreadsheets into a
+              vector store, then serves accurate, cited answers via a React-based
+              chat interface.
+            </p>
+          </div>
+          <div class="project-footer">
+            <span class="tag">RAG</span>
+            <span class="tag">HuggingFace</span>
+            <span class="tag">ChromaDB</span>
+            <span class="tag">React</span>
+            <span class="tag">Python</span>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card reveal reveal-delay-2" aria-labelledby="proj3-title">
+          <div class="project-header">
+            <div class="project-icon" aria-hidden="true">🏢</div>
+            <div class="project-links">
+              <a href="https://github.com/Likhith083" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="project-body">
+            <h3 id="proj3-title" class="project-name">ITion ERP Intelligence</h3>
+            <p class="project-desc">
+              AI-enhanced ERP module suite at ITion Solutions. Full-stack
+              React + Node.js + PostgreSQL application with intelligent inventory
+              forecasting, automated vendor matching, and anomaly detection
+              powered by PyTorch.
+            </p>
+          </div>
+          <div class="project-footer">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">Docker</span>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="project-card reveal" aria-labelledby="proj4-title">
+          <div class="project-header">
+            <div class="project-icon" aria-hidden="true">⚡</div>
+            <div class="project-links">
+              <a href="https://github.com/Likhith083" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="project-body">
+            <h3 id="proj4-title" class="project-name">AutoFlow Hub</h3>
+            <p class="project-desc">
+              Central automation hub built on n8n with custom AI nodes — routes
+              incoming data through LLM-powered classification, triggers
+              multi-step business workflows, and sends structured outputs
+              to Slack, email, and CRM systems.
+            </p>
+          </div>
+          <div class="project-footer">
+            <span class="tag">n8n</span>
+            <span class="tag">LangChain</span>
+            <span class="tag">REST APIs</span>
+            <span class="tag">Python</span>
+          </div>
+        </article>
+
+        <!-- Project 5 -->
+        <article class="project-card reveal reveal-delay-1" aria-labelledby="proj5-title">
+          <div class="project-header">
+            <div class="project-icon" aria-hidden="true">📱</div>
+            <div class="project-links">
+              <a href="https://github.com/Likhith083" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="project-body">
+            <h3 id="proj5-title" class="project-name">FieldOps Mobile</h3>
+            <p class="project-desc">
+              Cross-platform React Native + Expo field operations app for
+              real-time inventory scanning, task dispatch, and offline-first
+              data sync. Used by field teams at ITion Solutions to replace
+              paper-based workflows.
+            </p>
+          </div>
+          <div class="project-footer">
+            <span class="tag">React Native</span>
+            <span class="tag">Expo</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
+        </article>
+
+        <!-- Project 6 -->
+        <article class="project-card reveal reveal-delay-2" aria-labelledby="proj6-title">
+          <div class="project-header">
+            <div class="project-icon" aria-hidden="true">🔍</div>
+            <div class="project-links">
+              <a href="https://github.com/Likhith083" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="project-body">
+            <h3 id="proj6-title" class="project-name">SemanticSearch</h3>
+            <p class="project-desc">
+              Neural semantic search engine built with PyTorch sentence-transformers
+              and FAISS vector indexing. Delivers sub-100ms similarity search
+              across millions of records, exposed via a FastAPI backend with
+              a lightweight React UI.
+            </p>
+          </div>
+          <div class="project-footer">
+            <span class="tag">PyTorch</span>
+            <span class="tag">FAISS</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">React</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Certifications ─────────────────────────────────────────────── -->
+  <section id="certifications" class="section certs-section" aria-labelledby="certs-title">
+    <div class="container">
+      <p class="section-eyebrow">ls ~/.credentials</p>
+      <h2 id="certs-title" class="section-title">Certifications</h2>
+      <p class="section-subtitle">
+        Credentials earned across cloud, AI/ML, and software engineering disciplines.
+      </p>
+
+      <!-- Populated dynamically by script.js from data/certs.json -->
+      <div class="certs-grid" id="certs-grid" aria-live="polite" aria-label="Certifications list">
+        <!-- Loading state -->
+        <p style="color:var(--color-text-muted);font-family:var(--font-mono);font-size:13px;" aria-live="polite">
+          // Loading credentials...
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ────────────────────────────────────────────────────── -->
+  <section id="contact" class="section contact-section" aria-labelledby="contact-title">
+    <div class="container">
+      <p class="section-eyebrow">ssh likhith@avileli.dev</p>
+      <h2 id="contact-title" class="section-title">Get In Touch</h2>
+
+      <div class="contact-grid">
+
+        <div class="reveal">
+          <p class="contact-lead">
+            I'm always open to discussing interesting AI projects, full-stack
+            collaborations, or opportunities to build something meaningful.
+            Drop a message and I'll get back to you.
+          </p>
+
+          <div class="contact-channels" role="list">
+            <a href="mailto:likhith.avileli@gmail.com" class="contact-channel" role="listitem" aria-label="Send email to Likhith">
+              <div class="contact-channel-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="contact-channel-label">email</div>
+                <div class="contact-channel-value">likhith.avileli@gmail.com</div>
+              </div>
+              <div class="contact-channel-arrow" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/likhithavileli/" class="contact-channel" role="listitem" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+              <div class="contact-channel-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </div>
+              <div>
+                <div class="contact-channel-label">linkedin</div>
+                <div class="contact-channel-value">in/likhithavileli</div>
+              </div>
+              <div class="contact-channel-arrow" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </div>
+            </a>
+
+            <a href="https://github.com/Likhith083" class="contact-channel" role="listitem" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+              <div class="contact-channel-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </div>
+              <div>
+                <div class="contact-channel-label">github</div>
+                <div class="contact-channel-value">Likhith083</div>
+              </div>
+              <div class="contact-channel-arrow" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <div class="reveal reveal-delay-2">
+          <form id="contact-form" class="contact-form" novalidate aria-label="Contact form">
+            <div class="form-group">
+              <label class="form-label" for="form-name">NAME</label>
+              <input class="form-input" id="form-name" name="name" type="text" placeholder="Your name" autocomplete="name" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-email">EMAIL</label>
+              <input class="form-input" id="form-email" name="email" type="email" placeholder="your@email.com" autocomplete="email" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-message">MESSAGE</label>
+              <textarea class="form-textarea" id="form-message" name="message" placeholder="Tell me about your project..." required></textarea>
+            </div>
+            <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+            <button type="submit" class="btn btn-primary" style="align-self:flex-start">
+              Send Message
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <p class="footer-copy">
+      &copy; 2025 <span>Likhith Avileli</span> — Built with pure HTML, CSS &amp; JS
+    </p>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="https://github.com/Likhith083" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/likhithavileli/" class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:likhith.avileli@gmail.com" class="footer-link">Email</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="./script.js"></script>
+</body>
+</html>

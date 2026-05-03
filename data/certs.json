@@ -1,0 +1,82 @@
+[
+  {
+    "id": "aws-clf",
+    "title": "AWS Certified Cloud Practitioner",
+    "issuer": "Amazon Web Services",
+    "issued": "Mar 2024",
+    "credentialId": "AWS-CLF-C02",
+    "url": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+    "accent": "#FF9900",
+    "tags": ["Cloud", "AWS", "Infrastructure"]
+  },
+  {
+    "id": "tf-dev",
+    "title": "TensorFlow Developer Certificate",
+    "issuer": "Google",
+    "issued": "Jan 2024",
+    "credentialId": "TF-DEV-2024",
+    "url": "https://www.tensorflow.org/certificate",
+    "accent": "#FF6F00",
+    "tags": ["ML", "Deep Learning", "TensorFlow"]
+  },
+  {
+    "id": "ibm-ds",
+    "title": "IBM Data Science Professional Certificate",
+    "issuer": "IBM / Coursera",
+    "issued": "Sep 2023",
+    "credentialId": "IBM-DS-PRO",
+    "url": "https://www.coursera.org/professional-certificates/ibm-data-science",
+    "accent": "#1F70C1",
+    "tags": ["Data Science", "Python", "Machine Learning"]
+  },
+  {
+    "id": "meta-fe",
+    "title": "Meta Front-End Developer Certificate",
+    "issuer": "Meta",
+    "issued": "Jun 2023",
+    "credentialId": "META-FE-2023",
+    "url": "https://www.coursera.org/professional-certificates/meta-front-end-developer",
+    "accent": "#0082FB",
+    "tags": ["React", "Frontend", "JavaScript"]
+  },
+  {
+    "id": "langchain-llm",
+    "title": "LangChain for LLM Application Development",
+    "issuer": "DeepLearning.AI",
+    "issued": "Nov 2024",
+    "credentialId": "DL-LC-2024",
+    "url": "https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/",
+    "accent": "#4A90D9",
+    "tags": ["LLM", "LangChain", "Generative AI"]
+  },
+  {
+    "id": "docker-dca",
+    "title": "Docker & Kubernetes: The Practical Guide",
+    "issuer": "Udemy",
+    "issued": "Aug 2023",
+    "credentialId": "UC-DOCKER-2023",
+    "url": "https://www.udemy.com/course/docker-kubernetes-the-practical-guide/",
+    "accent": "#2496ED",
+    "tags": ["Docker", "Kubernetes", "DevOps"]
+  },
+  {
+    "id": "gcp-ml",
+    "title": "Machine Learning on Google Cloud",
+    "issuer": "Google Cloud / Coursera",
+    "issued": "Apr 2024",
+    "credentialId": "GCP-ML-2024",
+    "url": "https://www.coursera.org/specializations/machine-learning-tensorflow-gcp",
+    "accent": "#34A853",
+    "tags": ["GCP", "ML", "Cloud AI"]
+  },
+  {
+    "id": "n8n-automation",
+    "title": "n8n Workflow Automation Expert",
+    "issuer": "n8n Academy",
+    "issued": "Feb 2024",
+    "credentialId": "N8N-EXP-2024",
+    "url": "https://n8n.io/",
+    "accent": "#EA4B71",
+    "tags": ["Automation", "n8n", "Workflows"]
+  }
+]

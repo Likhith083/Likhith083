@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Likhith Avileli</title>
+  <!-- Favicon set via JS using btoa() to avoid encoding issues -->
+  <style>
+    :root {
+      --bg:           #05050f;
+      --bg-card:      #0d0d1e;
+      --bg-card2:     #131328;
+      --border:       #2a1f6b;
+      --border-light: #3d2d8f;
+      --primary:      #9b2fff;
+      --primary-lt:   #b668ff;
+      --secondary:    #5060ff;
+      --green:        #00e87a;
+      --cyan:         #00d4ff;
+      --text:         #e2e8f0;
+      --muted:        #7c85a2;
+      --dim:          #4a5578;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Courier New', 'Lucida Console', monospace;
+      overflow-x: hidden;
+    }
+
+    /* ─────────────────────────────────────────
+       BOOT SCREEN
+    ───────────────────────────────────────── */
+    #boot {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 9999;
+      padding: 28px 44px;
+      display: flex;
+      flex-direction: column;
+      transition: opacity 0.9s ease;
+    }
+    #boot.fade-out { opacity: 0; pointer-events: none; }
+
+    #boot-lines {
+      flex: 1;
+      overflow: hidden;
+      transition: opacity 0.5s ease;
+    }
+    #boot-lines.dim { opacity: 0.12; }
+
+    .bl {
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #00e87a;
+      opacity: 0;
+      animation: lineIn 0.18s ease forwards;
+    }
+    .bl .ts  { color: #005530; }
+    .bl .ok  { color: #00e87a; }
+    .bl .warn{ color: #f59e0b; }
+    .bl .brand { color: #b668ff; font-weight: bold; }
+
+    @keyframes lineIn {
+      from { opacity: 0; transform: translateX(-10px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    #os-logo {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+      pointer-events: none;
+    }
+    #os-logo.visible { opacity: 1; }
+
+    #os-logo .logo-svg {
+      width: 170px;
+      height: 170px;
+      filter: drop-shadow(0 0 18px rgba(155,47,255,0.55));
+      animation: none;
+    }
+    #os-logo.pulse .logo-svg {
+      animation: logoPulse 1.3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%,100% { filter: drop-shadow(0 0 14px rgba(155,47,255,0.5))  drop-shadow(0 0 38px rgba(80,96,255,0.25)); }
+      50%     { filter: drop-shadow(0 0 32px rgba(155,47,255,0.92)) drop-shadow(0 0 72px rgba(80,96,255,0.55)); }
+    }
+
+    #os-logo-label {
+      margin-top: 22px;
+      color: #b668ff;
+      font-size: 13px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.5s ease 0.5s;
+    }
+    #os-logo.visible #os-logo-label { opacity: 1; }
+
+    /* ─────────────────────────────────────────
+       MAIN PAGE
+    ───────────────────────────────────────── */
+    #main {
+      display: none;
+      min-height: 100vh;
+      animation: mainIn 0.85s ease forwards;
+    }
+    @keyframes mainIn { from { opacity:0 } to { opacity:1 } }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+
+    /* ── Navbar ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5,5,15,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .nav-logo .logo-svg { width: 34px; height: 34px; }
+    .nav-logo span { font-size: 15px; color: var(--primary-lt); font-weight: bold; letter-spacing: 0.04em; }
+
+    .nav-links { display: flex; gap: 30px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 12.5px; transition: color 0.2s; letter-spacing: 0.06em; }
+    .nav-links a:hover { color: var(--primary-lt); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 96px 48px 72px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .hero-prompt { color: var(--green); font-size: 13px; margin-bottom: 14px; }
+    .hero-prompt::before { content: '$ '; color: var(--primary); }
+
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.15; color: var(--text); margin-bottom: 8px; }
+    .hero h1 span { color: var(--primary); }
+
+    .hero-title { font-size: 1.05rem; color: var(--cyan); margin-bottom: 22px; letter-spacing: 0.06em; }
+    .hero-location { font-size: 0.85rem; color: var(--muted); margin-bottom: 22px; }
+    .hero-location::before { content: '📍 '; }
+
+    .hero-desc {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.93rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 660px;
+    }
+    .hero-cta { margin-top: 30px; display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn {
+      padding: 9px 22px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 12.5px;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .btn-primary { background: var(--primary); color: #fff; border: 1px solid var(--primary); }
+    .btn-primary:hover { background: var(--primary-lt); border-color: var(--primary-lt); box-shadow: 0 0 22px rgba(155,47,255,0.45); }
+    .btn-outline { background: transparent; color: var(--primary-lt); border: 1px solid var(--border-light); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ── Sections ── */
+    section {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 56px 48px;
+      border-top: 1px solid var(--border);
+    }
+    .section-header { margin-bottom: 36px; }
+    .section-label {
+      font-size: 10.5px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 7px;
+    }
+    .section-label::before { content: '// '; color: var(--dim); }
+    .section-title { font-size: 1.5rem; color: var(--text); }
+
+    /* ── About ── */
+    .about-text {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.93rem;
+      line-height: 1.85;
+      color: var(--muted);
+      max-width: 720px;
+    }
+    .about-text p + p { margin-top: 14px; }
+    .about-text strong { color: var(--text); }
+
+    /* ── Experience ── */
+    .exp-list { display: flex; flex-direction: column; gap: 22px; }
+
+    .exp-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--primary);
+      border-radius: 6px;
+      padding: 22px 26px;
+      transition: border-left-color 0.2s, box-shadow 0.2s;
+    }
+    .exp-card:hover {
+      border-left-color: var(--primary-lt);
+      box-shadow: 0 0 28px rgba(155,47,255,0.09);
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .exp-role { font-size: 1rem; color: var(--text); font-weight: bold; }
+    .exp-period {
+      font-size: 11px;
+      color: var(--green);
+      padding: 3px 8px;
+      background: rgba(0,232,122,0.07);
+      border: 1px solid rgba(0,232,122,0.2);
+      border-radius: 3px;
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+    }
+    .exp-company { font-size: 0.88rem; color: var(--primary-lt); margin-bottom: 12px; }
+    .exp-desc {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.86rem;
+      line-height: 1.72;
+      color: var(--muted);
+    }
+    .exp-bullets { margin-top: 10px; padding-left: 16px; }
+    .exp-bullets li {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.84rem;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .exp-bullets li strong { color: var(--text); }
+    .exp-tags { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      font-size: 11px;
+      padding: 2px 9px;
+      border-radius: 20px;
+      background: rgba(155,47,255,0.09);
+      border: 1px solid rgba(155,47,255,0.24);
+      color: var(--primary-lt);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Education ── */
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      border-radius: 6px;
+      padding: 20px 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .edu-school { font-size: 1rem; color: var(--text); font-weight: bold; margin-bottom: 4px; }
+    .edu-degree { font-size: 0.87rem; color: var(--cyan); }
+    .edu-period { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; white-space: nowrap; margin-top: 4px; }
+
+    /* ── Certifications ── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+      gap: 20px;
+    }
+    .cert-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 14px 18px;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+    }
+    .cert-badge:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 36px rgba(155,47,255,0.2);
+      border-color: var(--border-light);
+    }
+
+    /* Hexagon badge frame */
+    .cert-hex {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 14px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cert-hex svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .cert-icon { position: relative; z-index: 1; font-size: 26px; line-height: 1; }
+
+    .cert-name {
+      font-size: 11.5px;
+      font-weight: bold;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 5px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    .cert-issuer { font-size: 10.5px; color: var(--muted); margin-bottom: 9px; }
+    .cert-verify {
+      font-size: 10px;
+      color: var(--primary);
+      letter-spacing: 0.06em;
+      border: 1px solid rgba(155,47,255,0.3);
+      padding: 2px 8px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    /* ── Skills ── */
+    .skills-grid { display: flex; flex-direction: column; gap: 18px; }
+    .skill-group-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .skill-group-label::before { content: '> '; color: var(--dim); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .skill-tag {
+      font-size: 11.5px;
+      padding: 4px 11px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--bg-card);
+      transition: all 0.2s;
+      font-family: 'Courier New', monospace;
+    }
+    .skill-tag:hover { border-color: var(--primary); color: var(--primary-lt); background: rgba(155,47,255,0.08); }
+    .skill-tag.featured { border-color: rgba(155,47,255,0.38); color: var(--primary-lt); background: rgba(155,47,255,0.09); }
+
+    /* ── Contact ── */
+    .contact-grid { display: flex; flex-wrap: wrap; gap: 14px; }
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .contact-card:hover { border-color: var(--primary); box-shadow: 0 0 22px rgba(155,47,255,0.15); }
+    .contact-card svg { width: 22px; height: 22px; }
+    .contact-info small { display: block; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .contact-info span  { font-size: 13px; color: var(--primary-lt); }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 36px 48px;
+      border-top: 1px solid var(--border);
+      font-size: 11.5px;
+      color: var(--dim);
+    }
+    footer span { color: var(--primary); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      nav, section, .hero { padding-left: 20px; padding-right: 20px; }
+      .nav-links { display: none; }
+      #boot { padding: 18px 20px; }
+      .cert-grid { grid-template-columns: repeat(2, 1fr); }
+      .bl { font-size: 10.5px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     BOOT SCREEN
+════════════════════════════════════════ -->
+<div id="boot">
+  <div id="boot-lines"></div>
+
+  <div id="os-logo">
+    <!-- Penrose Impossible Triangle – OS Logo -->
+    <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+      <defs>
+        <linearGradient id="pg-boot" x1="30%" y1="5%" x2="70%" y2="95%">
+          <stop offset="0%"   stop-color="#9B2FFF"/>
+          <stop offset="100%" stop-color="#5060FF"/>
+        </linearGradient>
+      </defs>
+      <!-- Left beam -->
+      <polygon points="250,60 60,425 153,375 250,190"
+               fill="white" stroke="url(#pg-boot)" stroke-width="9" stroke-linejoin="round"/>
+      <!-- Right beam -->
+      <polygon points="250,60 250,190 347,375 440,425"
+               fill="white" stroke="url(#pg-boot)" stroke-width="9" stroke-linejoin="round"/>
+      <!-- Bottom beam -->
+      <polygon points="60,425 440,425 347,375 153,375"
+               fill="white" stroke="url(#pg-boot)" stroke-width="9" stroke-linejoin="round"/>
+      <!-- Center filled triangle -->
+      <polygon points="250,190 153,375 347,375" fill="url(#pg-boot)"/>
+    </svg>
+    <div id="os-logo-label">Likhith OS &nbsp;v2.6.0</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     MAIN PORTFOLIO PAGE
+════════════════════════════════════════ -->
+<div id="main">
+
+  <!-- Navbar -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+        <defs>
+          <linearGradient id="pg-nav" x1="30%" y1="5%" x2="70%" y2="95%">
+            <stop offset="0%"   stop-color="#9B2FFF"/>
+            <stop offset="100%" stop-color="#5060FF"/>
+          </linearGradient>
+        </defs>
+        <polygon points="250,60 60,425 153,375 250,190"   fill="white" stroke="url(#pg-nav)" stroke-width="9" stroke-linejoin="round"/>
+        <polygon points="250,60 250,190 347,375 440,425"  fill="white" stroke="url(#pg-nav)" stroke-width="9" stroke-linejoin="round"/>
+        <polygon points="60,425 440,425 347,375 153,375"  fill="white" stroke="url(#pg-nav)" stroke-width="9" stroke-linejoin="round"/>
+        <polygon points="250,190 153,375 347,375" fill="url(#pg-nav)"/>
+      </svg>
+      <span>likhith@ai:~$</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#certs">certifications</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-prompt">whoami</div>
+    <h1>Likhith <span>Avileli</span></h1>
+    <div class="hero-title">AI Engineer &amp; Full Stack Developer</div>
+    <div class="hero-location">Frisco, Texas, United States</div>
+    <p class="hero-desc">
+      I help teams ship production-ready AI features by bridging Generative AI,
+      modern web engineering, and security-first architecture. My background spans
+      full-stack development, ERP workflows, and cybersecurity — comfortable taking
+      an idea from prototype to a scalable, user-facing application.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">./contact.sh</a>
+      <a href="#experience" class="btn btn-outline">cat experience.json</a>
+    </div>
+  </div>
+
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="section-header">
+      <div class="section-label">about</div>
+      <h2 class="section-title">$ cat about.md</h2>
+    </div>
+    <div class="about-text">
+      <p>
+        I help teams ship <strong>production-ready AI features</strong> by bridging
+        Generative AI, modern web engineering, and security-first architecture.
+        My background spans full-stack development, ERP workflows, and
+        cybersecurity, so I'm comfortable taking an idea from prototype to a
+        scalable, user-facing application — without treating security as an
+        afterthought.
+      </p>
+      <p>
+        Recently, I built a <strong>Tariff Management system</strong> during my
+        MOURI Tech internship, implementing RAG pipelines and LLM-based agents
+        with Python and LangChain, including privacy-focused local models via
+        Ollama. I've also trained foundational NLP/ML models (sentiment analysis)
+        using spaCy, NLTK, and PyTorch.
+      </p>
+      <p>
+        At <strong>ITion Solutions</strong>, I grew from intern to engineer —
+        building and later modernising a corporate website (vanilla → React) and
+        leading IonERP's transformation from a .NET/C# desktop product toward an
+        <strong>Angular-based cloud experience</strong> and a
+        <strong>React Native/Expo</strong> cross-platform mobile ecosystem.
+      </p>
+      <p>
+        I actively use <strong>n8n</strong> for automation workflows, experiment
+        daily with AI tools (Cursor, Claude, Gemini, GPT-4o, Perplexity), and keep
+        up with fast-moving developments in the LLM and agent space.
+        Open to <strong>GenAI / Full-Stack AI roles</strong> and impactful
+        product work.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Experience ── -->
+  <section id="experience">
+    <div class="section-header">
+      <div class="section-label">experience</div>
+      <h2 class="section-title">$ cat experience.json</h2>
+    </div>
+    <div class="exp-list">
+
+      <!-- ITion Solutions – Software Engineer -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Software Engineer</div>
+          <div class="exp-period">Sep 2024 – Present · 1 yr 8 mo</div>
+        </div>
+        <div class="exp-company">ITion Solutions Limited · Full-time</div>
+        <div class="exp-desc">
+          IonERP | Mobile Modernisation &amp; Cross-Platform Lead — spearheading the
+          transformation of a legacy .NET/C# desktop ERP into a modern,
+          cross-platform mobile ecosystem.
+        </div>
+        <ul class="exp-bullets">
+          <li><strong>Rapid Modernisation:</strong> Prototyped a React Native/Expo solution in under 4 hours; POC became the foundation for a production-ready client delivered in just 8 weeks.</li>
+          <li><strong>Cross-Platform Architecture:</strong> Engineered a unified TypeScript codebase (Expo) serving iOS, Android, and Web with strict API contracts against the existing ERP backend.</li>
+          <li><strong>Dynamic UI Engine:</strong> Built a metadata-driven form system mirroring ERP logic — complex field validations and real-time calculations without compromising mobile performance.</li>
+          <li><strong>Field-Ready Features:</strong> Integrated hardware-level barcode scanning (expo-camera) and responsive layouts optimised for real-world inventory environments.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="tag">React Native</span>
+          <span class="tag">Expo</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">iOS / Android</span>
+          <span class="tag">ERP</span>
+          <span class="tag">Cross-Platform</span>
+          <span class="tag">.NET / C#</span>
+        </div>
+      </div>
+
+      <!-- MOURI Tech – GenAI Engineer -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Generative AI Engineer</div>
+          <div class="exp-period">May 2025 – Jul 2025 · 3 mo</div>
+        </div>
+        <div class="exp-company">MOURI Tech · Internship · Texas, United States</div>
+        <div class="exp-desc">
+          Intensive hands-on internship mastering concepts and practical skills
+          required to build real-world Generative AI solutions — from foundational
+          theory to application deployment.
+        </div>
+        <ul class="exp-bullets">
+          <li><strong>RAG Pipelines:</strong> Implemented Retrieval-Augmented Generation workflows to ground models in factual data, significantly improving response accuracy and reliability.</li>
+          <li><strong>Application Development:</strong> Engineered end-to-end AI agents using Python and LangChain; used Ollama for local model prototyping, FastAPI/Streamlit for UIs and APIs.</li>
+          <li><strong>AI-Enhanced Workflow:</strong> Adopted an architecture-first approach with Cursor as AI collaborator, sharpening prompt engineering and problem decomposition skills.</li>
+          <li><strong>Projects:</strong> Travel assistant, flight delay predictor, tariff management chatbot, and health advisory tool — each solving a tangible business problem.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="tag">Python</span>
+          <span class="tag">LangChain</span>
+          <span class="tag">RAG</span>
+          <span class="tag">Ollama</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">LLMs</span>
+          <span class="tag">Prompt Engineering</span>
+          <span class="tag">Vector DBs</span>
+        </div>
+      </div>
+
+      <!-- ITion Solutions – Junior SWE -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Junior Software Engineer</div>
+          <div class="exp-period">May 2022 – Sep 2024 · 2 yr 5 mo</div>
+        </div>
+        <div class="exp-company">ITion Solutions Limited · Full-time</div>
+        <div class="exp-desc">
+          Web Developer &amp; Hosting Engineer — built and maintained the company
+          website from the ground up, then led its migration to a modern React
+          application.
+        </div>
+        <ul class="exp-bullets">
+          <li><strong>Frontend Development &amp; Migration:</strong> Built original static site (HTML, CSS, Vanilla JS); later collaborated to rebuild as a modern React web application.</li>
+          <li><strong>Deployments &amp; Server Maintenance:</strong> Handled production deployments via WinSCP to Windows Server, managed IIS configurations and routine server maintenance.</li>
+          <li><strong>Performance Monitoring:</strong> Tracked site health and server metrics to troubleshoot bottlenecks — redesign contributed to a <strong>40% increase in web traffic</strong>.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="tag">React</span>
+          <span class="tag">HTML / CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">IIS</span>
+          <span class="tag">WinSCP</span>
+          <span class="tag">Windows Server</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Education ── -->
+  <section id="education">
+    <div class="section-header">
+      <div class="section-label">education</div>
+      <h2 class="section-title">$ cat education.json</h2>
+    </div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-school">The University of Texas at Arlington</div>
+        <div class="edu-degree">Bachelor of Science — Information Systems</div>
+      </div>
+      <div class="edu-period">Aug 2022 – May 2026</div>
+    </div>
+  </section>
+
+  <!-- ── Certifications ── -->
+  <section id="certs">
+    <div class="section-header">
+      <div class="section-label">certifications</div>
+      <h2 class="section-title">$ ls ./certs/</h2>
+    </div>
+    <div class="cert-grid">
+
+      <!-- 1. GitHub Professional Certificate -->
+      <a class="cert-badge" href="https://www.credly.com/users/likhithavileli" target="_blank" rel="noopener">
+        <div class="cert-hex">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#FF8C00"/>
+                <stop offset="100%" stop-color="#E03030"/>
+              </linearGradient>
+            </defs>
+            <polygon points="50,2 95,26 95,74 50,98 5,74 5,26" fill="url(#hg1)"/>
+            <polygon points="50,10 88,31 88,70 50,90 12,70 12,31" fill="#0d0d1e"/>
+          </svg>
+          <span class="cert-icon">🐙</span>
+        </div>
+        <div class="cert-name">Career Essentials in GitHub</div>
+        <div class="cert-issuer">GitHub &amp; LinkedIn Learning</div>
+        <span class="cert-verify">✓ VERIFIED</span>
+      </a>
+
+      <!-- 2. Google – Connect and Protect -->
+      <a class="cert-badge" href="https://www.credly.com/users/likhithavileli" target="_blank" rel="noopener">
+        <div class="cert-hex">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hg2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#4285F4"/>
+                <stop offset="100%" stop-color="#34A853"/>
+              </linearGradient>
+            </defs>
+            <polygon points="50,2 95,26 95,74 50,98 5,74 5,26" fill="url(#hg2)"/>
+            <polygon points="50,10 88,31 88,70 50,90 12,70 12,31" fill="#0d0d1e"/>
+          </svg>
+          <span class="cert-icon">🛡️</span>
+        </div>
+        <div class="cert-name">Connect &amp; Protect: Networks and Network Security</div>
+        <div class="cert-issuer">Google</div>
+        <span class="cert-verify">✓ VERIFIED</span>
+      </a>
+
+      <!-- 3. Google Cloud – Prompt Design in Vertex AI -->
+      <a class="cert-badge" href="https://www.credly.com/users/likhithavileli" target="_blank" rel="noopener">
+        <div class="cert-hex">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hg3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#00A0E9"/>
+                <stop offset="100%" stop-color="#0052CC"/>
+              </linearGradient>
+            </defs>
+            <polygon points="50,2 95,26 95,74 50,98 5,74 5,26" fill="url(#hg3)"/>
+            <polygon points="50,10 88,31 88,70 50,90 12,70 12,31" fill="#0d0d1e"/>
+          </svg>
+          <span class="cert-icon">☁️</span>
+        </div>
+        <div class="cert-name">Prompt Design in Vertex AI</div>
+        <div class="cert-issuer">Google Cloud</div>
+        <span class="cert-verify">✓ VERIFIED</span>
+      </a>
+
+      <!-- 4. Generative AI Power Prompter -->
+      <a class="cert-badge" href="https://www.credly.com/users/likhithavileli" target="_blank" rel="noopener">
+        <div class="cert-hex">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hg4" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#9B2FFF"/>
+                <stop offset="100%" stop-color="#FF6BFF"/>
+              </linearGradient>
+            </defs>
+            <polygon points="50,2 95,26 95,74 50,98 5,74 5,26" fill="url(#hg4)"/>
+            <polygon points="50,10 88,31 88,70 50,90 12,70 12,31" fill="#0d0d1e"/>
+          </svg>
+          <span class="cert-icon">🧠</span>
+        </div>
+        <div class="cert-name">Become a Generative AI Power Prompter &amp; Content Designer</div>
+        <div class="cert-issuer">LinkedIn Learning</div>
+        <span class="cert-verify">✓ VERIFIED</span>
+      </a>
+
+      <!-- 5. Vibe Coding -->
+      <a class="cert-badge" href="https://www.credly.com/users/likhithavileli" target="_blank" rel="noopener">
+        <div class="cert-hex">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hg5" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#00D4FF"/>
+                <stop offset="100%" stop-color="#00E87A"/>
+              </linearGradient>
+            </defs>
+            <polygon points="50,2 95,26 95,74 50,98 5,74 5,26" fill="url(#hg5)"/>
+            <polygon points="50,10 88,31 88,70 50,90 12,70 12,31" fill="#0d0d1e"/>
+          </svg>
+          <span class="cert-icon">⚡</span>
+        </div>
+        <div class="cert-name">Structure Vibe Coding to Save Build Time</div>
+        <div class="cert-issuer">LinkedIn Learning</div>
+        <span class="cert-verify">✓ VERIFIED</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── Skills / Tech Stack ── -->
+  <section id="skills">
+    <div class="section-header">
+      <div class="section-label">skills</div>
+      <h2 class="section-title">$ cat tech-stack.txt</h2>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <div class="skill-group-label">AI / ML</div>
+        <div class="skill-tags">
+          <span class="skill-tag featured">Python</span>
+          <span class="skill-tag featured">LangChain</span>
+          <span class="skill-tag featured">RAG Pipelines</span>
+          <span class="skill-tag featured">LLMs</span>
+          <span class="skill-tag featured">Prompt Engineering</span>
+          <span class="skill-tag featured">n8n Automation</span>
+          <span class="skill-tag">Ollama</span>
+          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">Streamlit</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">spaCy / NLTK</span>
+          <span class="skill-tag">Vector Databases</span>
+          <span class="skill-tag">Cursor AI</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-label">Frontend</div>
+        <div class="skill-tags">
+          <span class="skill-tag featured">React</span>
+          <span class="skill-tag featured">React Native</span>
+          <span class="skill-tag featured">TypeScript</span>
+          <span class="skill-tag featured">Expo</span>
+          <span class="skill-tag">Angular</span>
+          <span class="skill-tag">HTML / CSS</span>
+          <span class="skill-tag">JavaScript</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-label">Backend / DevOps</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">.NET / C#</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">GitHub Actions</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">IIS</span>
+          <span class="skill-tag">Windows Server</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-label">Security</div>
+        <div class="skill-tags">
+          <span class="skill-tag featured">Linux</span>
+          <span class="skill-tag featured">AI Security</span>
+          <span class="skill-tag featured">Information Security</span>
+          <span class="skill-tag">Network Security</span>
+          <span class="skill-tag">Security-first Architecture</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Contact ── -->
+  <section id="contact">
+    <div class="section-header">
+      <div class="section-label">contact</div>
+      <h2 class="section-title">$ ./contact.sh</h2>
+    </div>
+    <div class="contact-grid">
+
+      <a class="contact-card" href="https://www.linkedin.com/in/likhithavileli" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="24" height="24" rx="4" fill="#0A66C2"/>
+          <path d="M6.5 9.5H4v9h2.5v-9zM5.25 8.25a1.25 1.25 0 100-2.5 1.25 1.25 0 000 2.5zM20 13.5c0-2.5-1.3-4-3.4-4-1 0-1.9.5-2.3 1.3V9.5H11.8v9h2.5v-5c0-1.2.6-2 1.7-2 1 0 1.5.7 1.5 2v5H20v-5z" fill="white"/>
+        </svg>
+        <div class="contact-info">
+          <small>LinkedIn</small>
+          <span>likhithavileli</span>
+        </div>
+      </a>
+
+      <a class="contact-card" href="https://github.com/Likhith083" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="#b668ff" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+        <div class="contact-info">
+          <small>GitHub</small>
+          <span>Likhith083</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <span>likhith@ai:~$</span> &nbsp;Built with ♥ &nbsp;·&nbsp; Frisco, TX &nbsp;·&nbsp; 2026
+  </footer>
+
+</div><!-- #main -->
+
+<script>
+  // ─── Set browser-tab favicon via JS (avoids HTML attr encoding issues) ───────
+  (function () {
+    const svgFav = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <polygon points="50,12 50,38 69,75 88,85" fill="white" stroke="#9B2FFF" stroke-width="3.5"/>
+      <polygon points="50,12 12,85 31,75 50,38" fill="white" stroke="#9B2FFF" stroke-width="3.5"/>
+      <polygon points="12,85 88,85 69,75 31,75" fill="white" stroke="#9B2FFF" stroke-width="3.5"/>
+      <polygon points="50,38 31,75 69,75" fill="#7B25FF"/>
+    </svg>`;
+    const link = document.createElement('link');
+    link.rel  = 'icon';
+    link.type = 'image/svg+xml';
+    link.href = 'data:image/svg+xml;base64,' + btoa(svgFav);
+    document.head.appendChild(link);
+  })();
+
+  // ─── Boot sequence ────────────────────────────────────────────────────────────
+  const bootLines = [
+    `[<span class="ts">    0.000000</span>] LIKHITH OS v2.6.0 LTS (Frisco, TX) ··············· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.052341</span>] Loading kernel modules ··························· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.104782</span>] CPU: 12-Core Workstation — 4.8 GHz`,
+    `[<span class="ts">    0.157123</span>] Memory: 32 GB DDR5 initialized ··················· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.209564</span>] Mounting /dev/portfolio ·························· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.262005</span>] Starting Python 3.11 runtime ···················· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.314446</span>] Loading LangChain framework ····················· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.366887</span>] Initialising RAG pipeline engine ················ <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.419328</span>] Activating n8n automation workflows ············· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.471769</span>] Launching Ollama local model server ············· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.524210</span>] Loading React Native / Expo modules ············· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.576651</span>] Connecting GitHub API ···························· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.629092</span>] Activating security protocols ··················· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.681533</span>] Loading experience registry (4 years) ··········· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.733974</span>] Verifying credentials ···························· <span class="ok">[ OK ]</span>`,
+    `[<span class="ts">    0.786415</span>] All systems nominal. &nbsp;&nbsp; Welcome to <span class="brand">LIKHITH OS</span> ·· <span class="ok">[ OK ]</span>`,
+  ];
+
+  async function sleep(ms) {
+    return new Promise(r => setTimeout(r, ms));
+  }
+
+  async function runBoot() {
+    const linesEl = document.getElementById('boot-lines');
+    const logoEl  = document.getElementById('os-logo');
+    const bootEl  = document.getElementById('boot');
+
+    // 1 – print lines one by one (slower for realism)
+    for (let i = 0; i < bootLines.length; i++) {
+      await sleep(i === 0 ? 300 : 420);
+      const div = document.createElement('div');
+      div.className = 'bl';
+      div.innerHTML = bootLines[i];
+      div.style.animationDelay = '0ms';
+      linesEl.appendChild(div);
+      // scroll to bottom of lines
+      linesEl.scrollTop = linesEl.scrollHeight;
+    }
+
+    // 2 – brief pause, then dim lines
+    await sleep(700);
+    linesEl.classList.add('dim');
+
+    // 3 – OS logo fades in + pulses
+    await sleep(350);
+    logoEl.classList.add('visible');
+    await sleep(600);
+    logoEl.classList.add('pulse');
+
+    // 4 – hold on logo for a moment
+    await sleep(2400);
+
+    // 5 – fade out entire boot screen, show main
+    bootEl.classList.add('fade-out');
+    document.getElementById('main').style.display = 'block';
+
+    // 6 – remove boot screen from DOM after transition
+    await sleep(950);
+    bootEl.style.display = 'none';
+  }
+
+  window.addEventListener('load', runBoot);
+</script>
+
+</body>
+</html>
